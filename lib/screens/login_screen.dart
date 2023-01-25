@@ -1,6 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:tsw_productos_app/ui/inputs_export.dart';
 import 'package:tsw_productos_app/widgets/widgets_export.dart';
 
 //
@@ -31,7 +30,7 @@ class LoginScreen extends StatelessWidget {
           //
           //Espacio que dejo en la parte de arriba
           const SizedBox(
-            height: 100,
+            height: 150,
           ),
           //
           //
@@ -59,6 +58,11 @@ class LoginScreen extends StatelessWidget {
             'Crear una nueva Cuenta',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
+
+          const SizedBox(
+            height: 50,
+          ),
+
         ]),
       ),
     ));
@@ -75,33 +79,53 @@ class _LoginForm extends StatelessWidget {
           //TODO: Mantener la referencia al KEY
           child: Column(
         children: [
-
-          
           TextFormField(
-            autocorrect: false,
-            keyboardType: TextInputType.emailAddress,
-            decoration: const InputDecoration(
-                enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                  color: Colors.deepPurple,
-                )),
-                focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.deepPurple, width: 2)),
-                hintText: 'Email',
-                labelText: 'Correo Electronico',
-                labelStyle: TextStyle(
-                  color: Colors.grey
-                ),
-                prefixIcon: Icon(Icons.email_outlined, color: Colors.deepPurple,)
-                //
-                //
-                ),
-                
-                
+              autocorrect: false,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecorations.authInputDecoration(
+                  hintText: 'info@midominio.com',
+                  labelText: 'Correo Electronico',
+                  prefixIcon: Icons.email_outlined)),
+          //
+          const SizedBox(
+            height: 30,
           ),
-          TextFormField(),
+          //
+          TextFormField(
+              autocorrect: false,
+              obscureText: true,
+              keyboardType: TextInputType.visiblePassword,
+              decoration: InputDecorations.authInputDecoration(
+                  hintText: '*********',
+                  labelText: 'Clave de Acceso',
+                  prefixIcon: Icons.password_rounded)),
+          //
+          const SizedBox(
+            height: 30,
+          ),
+
+          MaterialButton(
+              shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10)),
+              disabledColor: Colors.grey,
+              color: Colors.deepPurple,
+              elevation: 0,
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 15),
+                child: const Text('Ingresar',
+                style: TextStyle(color: Colors.white),),
+              ),
+              onPressed: () {
+                print('Me dieron TAP');
+                //TODO: realizar el login.
+              })
+          //
         ],
       )),
     );
   }
 }
+
+
+// String pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+// RegExp regExp  = new RegExp(pattern);
