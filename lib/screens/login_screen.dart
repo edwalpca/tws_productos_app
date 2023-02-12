@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tsw_productos_app/providers/login_form_provider.dart';
 
 import 'package:tsw_productos_app/ui/inputs_export.dart';
 import 'package:tsw_productos_app/widgets/widgets_export.dart';
@@ -53,14 +54,17 @@ class LoginScreen extends StatelessWidget {
               //
               //
               //
-              _LoginForm(),
+              ChangeNotifierProvider(
+                create: (_) => LoginFormProvider(),
+                child: const _LoginForm(),
+              ),
               //
               //
               //
             ],
           )),
           const SizedBox(
-            height: 30,
+            height: 20,
           ),
           const Text(
             'Crear una nueva Cuenta',
@@ -81,9 +85,19 @@ class _LoginForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
+    //
+    //
+    //
+    final loginFormProvider = Provider.of<LoginFormProvider>(context);
+    //
+    //
+    //
     return Container(
       child: Form(
           //
+          //
+          key: loginFormProvider.formkey,
           //
           //
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -105,7 +119,7 @@ class _LoginForm extends StatelessWidget {
                 autocorrect: false,
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecorations.authInputDecoration(
-                    hintText: 'info@midominio.com',
+                    hintText: 'info@dominio.com',
                     labelText: 'Correo Electronico',
                     prefixIcon: Icons.email_outlined),
                 //el validator retorna el mensaje de erroe que se ven en pantalla
@@ -121,6 +135,7 @@ class _LoginForm extends StatelessWidget {
                       ? null
                       : 'El valor ingresado no es un arrlego';
                 },
+                onChanged: ((value) => loginFormProvider.email = value),
               ),
               //
               const SizedBox(
@@ -142,10 +157,11 @@ class _LoginForm extends StatelessWidget {
                       ? null
                       : 'La clave de contener mas de 6 caracteres';
                 },
+                onChanged: (value) => loginFormProvider.password = value,
               ),
               //
               const SizedBox(
-                height: 10,
+                height: 50,
               ),
               //
               //
@@ -158,18 +174,40 @@ class _LoginForm extends StatelessWidget {
                   disabledColor: Colors.grey,
                   color: Colors.deepPurple,
                   elevation: 0,
+                  // valido la bandera de loading para inactivar el boton
+                  // el boton con Null se inactiva
+                  onPressed: loginFormProvider.isloading
+                      ? null
+                      : () async {
+                          //
+                          //Oculto el teclado de telefono.
+                          FocusScope.of(context).unfocus();
+                          //
+                          if (!loginFormProvider.isValidForm()) return;
+                          //
+                          // Le indico a la bandera que voy a leguearme
+                          loginFormProvider.isloading = true;
+                          //
+                          //
+                          //Le meto un delay
+                          await Future.delayed(const Duration(seconds: 2));
+
+                          Navigator.pushReplacementNamed(context, 'home' );
+                        
+                        },
                   child: Container(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 80, vertical: 15),
-                    child: const Text(
-                      'Ingresar',
-                      style: TextStyle(color: Colors.white),
+                    child: Text(
+                      //
+                      //Valido si durante los segundos que dura la peticion para que el texto
+                      //del boton cambie.
+                      loginFormProvider.isloading
+                          ? 'autenticando...'
+                          : 'Ingresar',
+                      style: const TextStyle(color: Colors.white),
                     ),
-                  ),
-                  onPressed: () {
-                    print('Me dieron TAP');
-                    //TODO: realizar el login.
-                  })
+                  ))
               //
             ],
           )),

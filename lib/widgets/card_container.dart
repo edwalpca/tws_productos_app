@@ -23,7 +23,7 @@ class CardContainer extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(20),
         width: double.infinity,
-        height: 300, //TODO: por borrar
+        height: 350, //TODO: por borrar
         decoration: _createCardShape(),
         child: child,
       ),
