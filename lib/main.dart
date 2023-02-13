@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Productos Screeen',
-      initialRoute: 'login',
+      initialRoute: 'home',
       routes: {
         'login' : ( _ ) => const LoginScreen(),
         'home'  : ( _ ) => const HomeScreen(),
@@ -24,6 +24,15 @@ class MyApp extends StatelessWidget {
       //pero unicamente modifica el background del Scaffold.
       theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: Colors.grey[300],
+        appBarTheme: const AppBarTheme(
+          elevation: 0,
+          color: Colors.indigo
+        ),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: Colors.indigo,
+          elevation: 0
+          
+        )
       ),
     );
   }
