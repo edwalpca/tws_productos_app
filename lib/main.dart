@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tsw_productos_app/screens/products_screen.dart';
 import 'package:tsw_productos_app/screens/screens_export.dart';
 
 void main() => runApp(const MyApp());
@@ -17,8 +18,9 @@ class MyApp extends StatelessWidget {
       title: 'Productos Screeen',
       initialRoute: 'home',
       routes: {
-        'login' : ( _ ) => const LoginScreen(),
-        'home'  : ( _ ) => const HomeScreen(),
+        'login'   : ( _ ) => const LoginScreen(),
+        'home'    : ( _ ) => const HomeScreen(),
+        'product' : ( _ ) => const ProductScreen()
       },
       //Realizo una copia del tema de todos sus valores
       //pero unicamente modifica el background del Scaffold.

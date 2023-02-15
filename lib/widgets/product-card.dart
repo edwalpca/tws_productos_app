@@ -211,7 +211,7 @@ class _backGroundImage extends StatelessWidget {
         child: const FadeInImage(
           fit: BoxFit.cover,
             placeholder: AssetImage('assets/jar-loading.gif'),
-            image: NetworkImage('https://sonicolor.es/8652-home_default/disco-duro-ssd-240-gb-kingston-sa400s37-240g.jpg')),
+            image: NetworkImage('https://hiraoka.com.pe/media/mageplaza/blog/post/m/a/macbook_air_vs._macbook_pro-_cuales_son_sus_diferencias.jpg')),
       ),
     );
   }
