@@ -27,7 +27,7 @@ class AuthBackGround extends StatelessWidget {
         children: [
           //
           //Recuadro superior de la pantalla de Login.
-          const _PurpleBox(),
+          _PurpleBox(),
           //ubicacion del Logo de la pantalla en el cual utilizo un icono
           // a gran escala
           const _HeaderIcon(),
@@ -65,7 +65,8 @@ class _HeaderIcon extends StatelessWidget {
 }
 
 class _PurpleBox extends StatelessWidget {
-  const _PurpleBox({super.key});
+  
+  //const _PurpleBox({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +87,7 @@ class _PurpleBox extends StatelessWidget {
         //
         //
         //
-        children: const [
+        children:  [
           //Dibujo las Burbujas en el Header
           //Burbujas
           Positioned(
@@ -131,7 +132,8 @@ class _PurpleBox extends StatelessWidget {
 //
 //Widget que voy a utilizar para Dibujar las Burbujas.
 class _Bubble extends StatelessWidget {
-  const _Bubble({super.key});
+  //
+  //const _Bubble({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -26,7 +26,7 @@ class ProductCard extends StatelessWidget {
             //
             //
 
-            _backGroundImage(),
+            _BackGroundImage(),
             //
             //
             //          
@@ -76,6 +76,8 @@ class ProductCard extends StatelessWidget {
 //
 //
 class _BoxDisponible extends StatelessWidget {
+
+  
   const _BoxDisponible({super.key});
 
   @override
@@ -155,7 +157,7 @@ class _ProductDetails extends StatelessWidget {
       padding: const EdgeInsets.only(right: 35),
       child: Container(
         
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         width: double.infinity,
         height: 70,
         decoration: const BoxDecoration(
@@ -192,8 +194,9 @@ class _ProductDetails extends StatelessWidget {
 //
 //
 
-class _backGroundImage extends StatelessWidget {
-  const _backGroundImage({
+class _BackGroundImage extends StatelessWidget {
+  
+  const _BackGroundImage({
     Key? key,
   }) : super(key: key);
 

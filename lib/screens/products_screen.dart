@@ -127,7 +127,7 @@ class _ProductForm extends StatelessWidget {
               activeColor: Colors.indigo,
               title: const Text('Disponible:'),
               value: true, onChanged: (value) {
-              //TODO:
+            
             })
           ],
         )),
