@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:tsw_productos_app/services/services_export.dart';
 import 'package:tsw_productos_app/ui/inputs_export.dart';
 import '../widgets/widgets_export.dart';
 
@@ -12,6 +14,8 @@ class ProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
     return SafeArea(
       child: Scaffold(
         // appBar: AppBar(
@@ -39,7 +43,7 @@ class ProductScreen extends StatelessWidget {
                             size: 40,
                             color: Colors.white,
                           ))),
-    
+
                   //
                   Positioned(
                       top: 60,
@@ -70,9 +74,9 @@ class ProductScreen extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.save_as_outlined),
           onPressed: () {
-          //TODO:Guadar info del formulario
-          
-        },),
+            //TODO:Guadar info del formulario
+          },
+        ),
       ),
     );
   }
@@ -124,11 +128,10 @@ class _ProductForm extends StatelessWidget {
             //
             //
             SwitchListTile.adaptive(
-              activeColor: Colors.indigo,
-              title: const Text('Disponible:'),
-              value: true, onChanged: (value) {
-            
-            })
+                activeColor: Colors.indigo,
+                title: const Text('Disponible:'),
+                value: true,
+                onChanged: (value) {})
           ],
         )),
       ),

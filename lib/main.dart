@@ -1,8 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:tsw_productos_app/screens/products_screen.dart';
 import 'package:tsw_productos_app/screens/screens_export.dart';
+import 'package:tsw_productos_app/services/products_service.dart';
 
-void main() => runApp(const MyApp());
+void main() => runApp(const AppState());
+
+//
+//
+class AppState extends StatelessWidget {
+  const AppState({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        //Por defecto el ChangeNotifierProvider el Lazy viene en true y no lo llama.
+        ChangeNotifierProvider(create: (_) => ProductsService())
+      ],
+      child: const MyApp(),
+    );
+  }
+}
 
 class MyApp extends StatelessWidget {
   //
