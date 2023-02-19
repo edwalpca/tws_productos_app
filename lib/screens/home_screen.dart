@@ -32,8 +32,18 @@ class HomeScreen extends StatelessWidget {
               //
               //
               return GestureDetector(
-                  onTap: () => Navigator.pushNamed(context, 'product'),
-                  child: ProductCard(producto: productService.productos[index]));
+                  onTap: () {
+                    //
+                    //
+                    //Este metodo lo que me permite crear una copia de item seleccionado.
+                    //Para pasarle ese objeto al formulario de edicion y NO TOCA los valores del objeto
+                    //del Arreglo.
+                    productService.selectedProduct =
+                        productService.productos[index].copy();
+                    Navigator.pushNamed(context, 'product', arguments: productService.selectedProduct );
+                  },
+                  child:
+                      ProductCard(producto: productService.productos[index]));
               //
               //
             }),

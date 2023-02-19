@@ -9,9 +9,12 @@ class ProductsService extends ChangeNotifier {
   //
   final String _baseURL = 'fluttercrud-f51d5.firebaseio.com';
   final List<Product> productos = [];
-
   bool isLoading = true;
-
+  //
+  //
+  //Late le dice a la variable que cuando sea llamada o invocada  contendra el valor.
+  late Product selectedProduct;
+  //
   ProductsService() {
     //
     //Carga los productos que me suministra mi EndPoint
@@ -23,14 +26,9 @@ class ProductsService extends ChangeNotifier {
     //
     //
     //
-    //
     print('cargarProductos...');
     isLoading = true;
     notifyListeners();
-    //
-    //
-    //
-    //
     //
     //
     //
@@ -40,14 +38,12 @@ class ProductsService extends ChangeNotifier {
     //
     //Recorro la respuesta de mi peticion http.
     if (productMap.isNotEmpty) {
-
       productMap.forEach((key, value) {
         final productTemp = Product.fromJson(value);
         productTemp.id = key;
         productos.add(productTemp);
       });
-      
-    } 
+    }
     isLoading = false;
     notifyListeners();
     return productos.isNotEmpty ? productos : [];
