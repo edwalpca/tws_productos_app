@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:tsw_productos_app/providers/product_form_provider.dart';
+import 'package:tsw_productos_app/screens/screens_export.dart';
 import 'package:tsw_productos_app/services/services_export.dart';
 import 'package:tsw_productos_app/ui/inputs_export.dart';
 import '../widgets/widgets_export.dart';
@@ -20,7 +21,9 @@ class ProductScreen extends StatelessWidget {
     final productService = Provider.of<ProductsService>(context);
     return ChangeNotifierProvider(
       create: (_) => ProductFormProvider(productService.selectedProduct),
-      child: _ProductScreenBody(productService: productService),
+      child: productService.isSaving 
+      ? const LoadingScreen():
+      _ProductScreenBody(productService: productService),
     );
   }
 }
@@ -45,6 +48,11 @@ class _ProductScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //
+    //
+    final productForm = Provider.of<ProductFormProvider>(context);
+
+    //
     return SafeArea(
       child: Scaffold(
         // appBar: AppBar(
@@ -68,7 +76,7 @@ class _ProductScreenBody extends StatelessWidget {
                       top: 60,
                       left: 20,
                       child: IconButton(
-                          onPressed:() =>  Navigator.of(context ).pop(),
+                          onPressed: () => Navigator.of(context).pop(),
                           icon: const Icon(
                             Icons.arrow_back_ios_new,
                             size: 40,
@@ -104,8 +112,18 @@ class _ProductScreenBody extends StatelessWidget {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.save_as_outlined),
-          onPressed: () {
-            //TODO:Guadar info del formulario
+          onPressed: () async {
+            
+            print('Guardando....');
+
+            if (!productForm.isValidForm()) return;
+            //
+            //
+            //
+            //Se encarga de enviar al Server los nuevos Valores.
+            await productService.saveOrCreateProduct(productForm.producto);
+            //
+            //
           },
         ),
       ),
@@ -147,69 +165,71 @@ class _ProductForm extends StatelessWidget {
         //height: 200,
         decoration: _buildBoxDecoration(),
         child: Form(
+            //
+            //
+            //Asocio el formulario con el Provider del Formulario.
+            key: productForm.formkey,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             child: Column(
-          children: [
-            const SizedBox(
-              height: 5,
-            ),
-            TextFormField(
-              initialValue: producto.name,
-              decoration: InputDecorations.authInputDecoration(
-                  hintText: 'Nombre del Producto', labelText: 'Nombre:'),
-              onChanged: ((value) => producto.name = value),
-              validator: ((value) {
-                if (value == null || value.length < 4) {
-                  return 'El Nombre del Producto es Requerido';
-                }
-              }),
-            ),
-            //
-            //
-            //
-            const SizedBox(
-              height: 20,
-            ),
-            //
-            //
-            //
-            //
-            TextFormField(
-              initialValue: producto.price.toString(),
-              keyboardType: TextInputType.number,
-              decoration: InputDecorations.authInputDecoration(hintText: 'Precio del Producto', labelText: 'Precio:'),
-              inputFormatters: [
-                //
-                // Exprecion regular para validar un numero don un decimal.
-                FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\.?\d{0,2}'))
+              children: [
+                const SizedBox(
+                  height: 5,
+                ),
+                TextFormField(
+                  initialValue: producto.name,
+                  decoration: InputDecorations.authInputDecoration(
+                      hintText: 'Nombre del Producto', labelText: 'Nombre:'),
+                  onChanged: ((value) => producto.name = value),
+                  validator: ((value) {
+                    if (value == null || value.length < 4) {
+                      return 'El Nombre del Producto es Requerido';
+                    }
+                  }),
+                ),
                 //
                 //
-              ],    
-              onChanged: ((value) {
-                if (double.tryParse(value) == null) {
-                  producto.price = 0.00;
-                } else {
-                  producto.price = double.parse(value);
-                }
-              }),
-              validator: ((value) {
-                if (value == null) {
-                  return 'El Precio del Producto es Requerido';
-                }
-              }),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            //
-            //
-            //
-            SwitchListTile.adaptive(
-                activeColor: Colors.indigo,
-                title: const Text('Disponible:'),
-                value: producto.available,
-                onChanged: (value)=> productForm.updateAvailability(value))
-          ],
-        )),
+                //
+                const SizedBox(
+                  height: 20,
+                ),
+                //
+                //
+                //
+                //
+                TextFormField(
+                  initialValue: producto.price.toString(),
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecorations.authInputDecoration(
+                      hintText: 'Precio del Producto', labelText: 'Precio:'),
+                  inputFormatters: [
+                    //
+                    // Exprecion regular para validar un numero don un decimal.
+                    FilteringTextInputFormatter.allow(
+                        RegExp(r'^(\d+)?\.?\d{0,2}'))
+                    //
+                    //
+                  ],
+                  onChanged: ((value) {
+                    if (double.tryParse(value) == null) {
+                      producto.price = 0.00;
+                    } else {
+                      producto.price = double.parse(value);
+                    }
+                  }),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                //
+                //
+                //
+                SwitchListTile.adaptive(
+                    activeColor: Colors.indigo,
+                    title: const Text('Disponible:'),
+                    value: producto.available,
+                    onChanged: (value) => productForm.updateAvailability(value))
+              ],
+            )),
       ),
     );
   }

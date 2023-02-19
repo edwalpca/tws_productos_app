@@ -13,7 +13,8 @@ class Product {
   //
   //
   Product(
-      {required this.available,
+      {
+        required this.available,
       required this.name,
       this.picture,
       required this.price,
@@ -39,7 +40,7 @@ class Product {
       );
 
   Map<String, dynamic> toJson() => {
-        "available": available,
+        "available":  available,
         "name": name,
         "picture": picture,
         "price": price,
@@ -47,7 +48,9 @@ class Product {
 
   //Este medoto me pemite crear una copia de la instancia de un Producto en particular
   Product copy() =>
-      Product(available: available, picture: picture, name: name, price: price);
+      Product(
+        available: available, picture: picture, name: name, price: price,
+        id: id);
 }
 
 // To parse this JSON data, do

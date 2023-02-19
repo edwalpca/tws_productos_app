@@ -15,6 +15,12 @@ class ProductFormProvider extends ChangeNotifier {
   ProductFormProvider(this.producto);
 
   bool isValidForm() {
+
+    
+    print(producto.name);
+    print(producto.price);
+    print(producto.available);
+
     return formkey.currentState?.validate() ?? false;
   }
 
