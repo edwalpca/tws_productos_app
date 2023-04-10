@@ -1,10 +1,10 @@
-# tsw_productos_app
+# CRUD de Productos.
 
 Proyecto de actualizacion Profesional de un CRUD en Flutter consumiendo un WebService RestFull con Firebase de Productos.
 
 El proyecto contiene las siguientes funcionalidades:
 
-- Un pantalla de Login
+- Un pantalla de Login - autenticacion con FireBase
 - Una pantalla de loadingScreen.
 - Una pantalla de Listado de Productos.
 - Una pantalla de Agregar Productos.
@@ -51,3 +51,10 @@ Para IOS en el archivo info.plis se requieren los siguientes accesos y/o valores
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Necesito acceso al microfono para grabar videos</string>	
 
+## ScreenShots de la Aplicacion
+
+![Pantalla Login](https://github.com/edwalpca/tws_productos_app//blob/main/info_proyecto/login.png)
+![Pantalla Listado](https://github.com/edwalpca/tws_productos_app//blob/main/info_proyecto/listadoProductos.png)
+![Pantalla Nuevo Producto](https://github.com/edwalpca/tws_productos_app//blob/main/info_proyecto/nuevoProducto.png)
+![Pantalla Editar Producto](https://github.com/edwalpca/tws_productos_app//blob/main/info_proyecto/editarProducto.png)
+![Pantalla Loading Page](https://github.com/edwalpca/tws_productos_app//blob/main/info_proyecto/loadingPage.png)
