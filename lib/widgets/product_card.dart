@@ -227,7 +227,7 @@ class _BackGroundImage extends StatelessWidget {
         (producto.picture == '')
         ? const Image(image: AssetImage('assets/no-image.png'), fit: BoxFit.cover,)
         : FadeInImage(
-            fit: BoxFit.cover,
+            fit: BoxFit.fitWidth,
             placeholder: const AssetImage('assets/jar-loading.gif'),
             image: NetworkImage(producto.picture.toString())
         ),

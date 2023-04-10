@@ -6,8 +6,8 @@ import 'package:tsw_productos_app/screens/screens_export.dart';
 import 'package:tsw_productos_app/services/services_export.dart';
 import 'package:tsw_productos_app/ui/inputs_export.dart';
 import '../widgets/widgets_export.dart';
-
-//
+// Importacion del Paquete para gestionar imagenes.
+import 'package:image_picker/image_picker.dart';
 //
 //
 
@@ -21,9 +21,11 @@ class ProductScreen extends StatelessWidget {
     final productService = Provider.of<ProductsService>(context);
     return ChangeNotifierProvider(
       create: (_) => ProductFormProvider(productService.selectedProduct),
-      child: productService.isSaving 
-      ? const LoadingScreen():
-      _ProductScreenBody(productService: productService),
+      // child: productService.isSaving
+      //     ? const LoadingScreen()
+      //     : _ProductScreenBody(productService: productService),
+            child: _ProductScreenBody(productService: productService),
+
     );
   }
 }
@@ -84,12 +86,32 @@ class _ProductScreenBody extends StatelessWidget {
                           ))),
 
                   //
-                  const Positioned(
+                  Positioned(
                       top: 60,
                       right: 40,
                       child: IconButton(
-                          onPressed: null,
-                          icon: Icon(
+                          onPressed: () async {
+                            final picker = ImagePicker();
+                            final PickedFile? pickedFile =
+                                await picker.getImage(
+                              // Dos fuentes para las imagenes
+                              // ImageSource.gallery
+                              // ImageSource.camera
+                              source: ImageSource.camera,
+                              imageQuality: 100,
+                            );
+
+                            if (pickedFile == null) {
+                              print('No selecciono nada');
+                            }
+
+                            print('Tenemos una imagen: ${pickedFile?.path}');
+
+                            //Para mostrar la imagen del producto en la pantalla
+                            productService
+                                .updateSelectedProductImage(pickedFile!.path);
+                          },
+                          icon: const Icon(
                             Icons.camera_alt_rounded,
                             size: 40,
                             color: Colors.white,
@@ -109,17 +131,31 @@ class _ProductScreenBody extends StatelessWidget {
             ],
           ),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
         floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.save_as_outlined),
-          onPressed: () async {
-            
+          child: productService.isSaving  
+          ?  CircularProgressIndicator(color: Colors.white)
+          :  Icon(Icons.save_as_outlined),
+          onPressed: 
+          productService.isSaving 
+          ?null
+          : () async {
+            //
+            //
             print('Guardando....');
 
             if (!productForm.isValidForm()) return;
             //
+            //Guardamos la imagen seleccionada
+            final String? imageUrl = await productService.uploadImage();
             //
             //
+            print('Imagen Enviada a Cloudinary:' + imageUrl!);
+
+            if (imageUrl != ""){
+              productForm.producto.picture = imageUrl;
+            }
+
             //Se encarga de enviar al Server los nuevos Valores.
             await productService.saveOrCreateProduct(productForm.producto);
             //

@@ -1,11 +1,15 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class ProductImage extends StatelessWidget {
   
-  final String urlImage;
-  
+  final String? urlImage;
+
   const ProductImage({
-    Key? key, required this.urlImage,
+    Key? key,
+    this.urlImage,
   }) : super(key: key);
 
   @override
@@ -17,17 +21,10 @@ class ProductImage extends StatelessWidget {
         width: double.infinity,
         decoration: _buildBoxDecoration(),
         child: Opacity(
-          opacity: 0.8,
+          opacity: 0.7,
           child: ClipRRect(
-            borderRadius: _borderRadius,
-            child: urlImage == "" 
-            ? const Image(image: AssetImage('assets/no-image.png'),fit: BoxFit.cover,)
-            : FadeInImage(
-              image: NetworkImage(urlImage),
-              placeholder: const AssetImage('assets/jar-loading.gif'),
-              fit: BoxFit.cover,
-            ) 
-          ),
+              borderRadius: _borderRadius,
+              child: getImage(urlImage)),
         ),
       ),
     );
@@ -47,6 +44,37 @@ class ProductImage extends StatelessWidget {
         ],
         borderRadius: _borderRadius);
   }
+  // Metodo Intermdio para mostrar la imagen segun el Proveedor de la misma.
+  //es decir tenemos 3 escenarios,
+  // 1 - donde no hay imagen
+  // 2 - donde la imagen proviene de una URL.
+  // 3 - donde la imagen proviene de un path del dispositivo.
+  Widget getImage(String? picture) {
+    if (picture == null) {
+      return const Image(
+          image: AssetImage('assets/no-image.png'), fit: BoxFit.cover);
+    }
+
+     if (picture == "") {
+      return const Image(
+          image: AssetImage('assets/no-image.png'), fit: BoxFit.cover);
+    }
+
+    if (picture.startsWith('http')) {
+      return FadeInImage(
+        image: NetworkImage(picture),
+        placeholder: const AssetImage('assets/jar-loading.gif'),
+        fit: BoxFit.fitWidth,
+      );
+    }
+
+    return Image.file(
+      File(picture),
+      fit: BoxFit.cover,
+    );
+  }
+
+
 }
 
 //
@@ -55,3 +83,5 @@ BorderRadius _borderRadius = const BorderRadius.only(
   topLeft: Radius.circular(45),
   topRight: Radius.circular(45),
 );
+
+

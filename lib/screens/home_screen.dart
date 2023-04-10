@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tsw_productos_app/models/models_export.dart';
 import 'package:tsw_productos_app/screens/screens_export.dart';
 
 import '../services/services_export.dart';
@@ -40,7 +41,8 @@ class HomeScreen extends StatelessWidget {
                     //del Arreglo.
                     productService.selectedProduct =
                         productService.productos[index].copy();
-                    Navigator.pushNamed(context, 'product', arguments: productService.selectedProduct );
+                    Navigator.pushNamed(context, 'product',
+                        arguments: productService.selectedProduct);
                   },
                   child:
                       ProductCard(producto: productService.productos[index]));
@@ -49,7 +51,22 @@ class HomeScreen extends StatelessWidget {
             }),
       ),
       floatingActionButton:
-          FloatingActionButton(child: const Icon(Icons.add), onPressed: () {}),
+          //
+
+          FloatingActionButton(
+              child: const Icon(Icons.add),
+              onPressed: () {
+                //
+                //
+                final producto = Product(
+                  available: false, 
+                  picture: '',
+                  name: '', 
+                  price: 0);
+                //
+                productService.selectedProduct = producto;
+                Navigator.pushNamed(context, 'product');
+              }),
     );
   }
 }

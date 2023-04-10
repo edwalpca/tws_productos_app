@@ -12,13 +12,13 @@ class Product {
   String? id;
   //
   //
-  Product(
-      {
+  Product({
         required this.available,
-      required this.name,
-      this.picture,
-      required this.price,
-      this.id});
+        required this.name,
+        this.picture,
+        required this.price,
+        this.id
+        });
 
   factory Product.fromRawJson(String str) => Product.fromJson(json.decode(str));
 
