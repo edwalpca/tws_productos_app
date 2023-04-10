@@ -53,8 +53,8 @@ Para IOS en el archivo info.plis se requieren los siguientes accesos y/o valores
 
 ## ScreenShots de la Aplicacion
 
-![Pantalla Login](https://github.com/edwalpca/tws_productos_app//blob/main/info_proyecto/login.png)
-![Pantalla Listado](https://github.com/edwalpca/tws_productos_app//blob/main/info_proyecto/listadoProductos.png)
-![Pantalla Nuevo Producto](https://github.com/edwalpca/tws_productos_app//blob/main/info_proyecto/nuevoProducto.png)
-![Pantalla Editar Producto](https://github.com/edwalpca/tws_productos_app//blob/main/info_proyecto/editarProducto.png)
-![Pantalla Loading Page](https://github.com/edwalpca/tws_productos_app//blob/main/info_proyecto/loadingPage.png)
+![Pantalla Login](https://github.com/edwalpca/tws_productos_app/blob/main/info_proyecto/login.png)
+![Pantalla Listado](https://github.com/edwalpca/tws_productos_app/blob/main/info_proyecto/listadoProductos.png)
+![Pantalla Nuevo Producto](https://github.com/edwalpca/tws_productos_app/blob/main/info_proyecto/nuevoProducto.png)
+![Pantalla Editar Producto](https://github.com/edwalpca/tws_productos_app/blob/main/info_proyecto/editarProducto.png)
+![Pantalla Loading Page](https://github.com/edwalpca/tws_productos_app/blob/main/info_proyecto/loadingPage.png)
